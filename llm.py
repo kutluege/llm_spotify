@@ -3,6 +3,12 @@ import torch
 import re
 import os
 
+def create_prompt(new_act, examples):
+    prompt = "Aşağıdaki Spotify API eylemlerini, verilen örnekleri kullanarak API çağrılarına dönüştürün.\n\n"
+    for example in examples:
+        prompt += f"Action: **{example['action']}**\nInstruction:\n{example['instruction']}\nAPI Call:\n```bash\n{example['api_call']}\n```\n\n"
+    prompt += f"**Now, convert this action:**\n\nAction: **{new_act}**\nAPI Call:\n"
+    return prompt
 def generate_api_call(playlist_id, access_token):
     examples = [
         {
@@ -14,14 +20,11 @@ def generate_api_call(playlist_id, access_token):
     
     prompt = create_prompt(f"ID'si {playlist_id} olan bir playlisti getir.", examples)
 
-    # Load the model and tokenizer
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16, device_map="auto")
 
-    # Tokenize input prompt
     inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
 
-    # Generate response
     outputs = model.generate(
         **inputs,
         max_new_tokens=512,
@@ -31,10 +34,8 @@ def generate_api_call(playlist_id, access_token):
         pad_token_id=tokenizer.eos_token_id
     )
 
-    # Decode the generated response
     full_response = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-    # Extract URL and headers from the response
     url = re.search(r"--url (https?://[^\s]+)", full_response)
     auth_header = re.search(r"--header 'Authorization: Bearer ([^']+)'", full_response)
     
@@ -43,10 +44,9 @@ def generate_api_call(playlist_id, access_token):
     
     return url, {"Authorization": f"Bearer {auth_token}"}
 
-# Example usage
 if __name__ == "__main__":
     playlist_id = "37i9dQZF1DXcBWIGoYBM5M"
-    access_token = "your_spotify_access_token_here"  # Directly include your token here
+    access_token = ""  # Directly include your token here
     url, headers = generate_api_call(playlist_id, access_token)
     print("URL:", url)
     print("Headers:", headers)

@@ -3,6 +3,8 @@ import torch
 import re
 import os
 
+model_name = "meta-llama/Llama-2-7b-hf" 
+
 def create_prompt(new_act, examples):
     prompt = "Aşağıdaki Spotify API eylemlerini, verilen örnekleri kullanarak API çağrılarına dönüştürün.\n\n"
     for example in examples:
@@ -20,7 +22,7 @@ def generate_api_call(playlist_id, access_token):
     
     prompt = create_prompt(f"ID'si {playlist_id} olan bir playlisti getir.", examples)
 
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    tokenizer = AutoTokenizer.from_pretrained()
     model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16, device_map="auto")
 
     inputs = tokenizer(prompt, return_tensors="pt").to("cuda")

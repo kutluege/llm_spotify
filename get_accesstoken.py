@@ -10,7 +10,7 @@ client_id = "f29ee281b7664d65ad23ecc58965e61d"
 client_secret ="55f57bd1a7c14c3ba3e05657f9f19294"
 redirect_uri = "https://llmspotify.streamlit.app/"
 
-code = "AQC71aKQQ2AwkNd9G7mIQP7BSKVCgjHW_L-J6U9SJqzBiCDcDcFDjNf71Kg8zdsr7bhMJYDELaNkNCiSTX_B8UzI1R4C430h9Z83Xr5NCH2qXc0ERr9Ea4wYf7KZzewGM4Nycu2Mu1jpdfKovFP27us3YUiZYZ_j46COOxskXknzYystYVv8N8Gx5tm2G5-RNoicCvtBNBDYQ1Y3"
+code = "AQBbyZxUMmkSg9qS72h-ezaqT6r8-M1xTEJkigIR7WmArKuV8By2AIcC_UjxtCp8ou83r93SRtyFH2yBD2p-bSPSAkhVICwRd4fdIZfE30gfrKqnp1Ko82VPUB1NXXENn_U7j2v7XvXT87cRbNflWgWMe4q8wGIfeTeF1oFd_WQOy61iKT0SMqKJfTwv-vrelXGBQEMFs1PpM-B7"
 
 def get_access_token(code):
     url = "https://accounts.spotify.com/api/token"

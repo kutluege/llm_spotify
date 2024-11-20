@@ -1,5 +1,5 @@
-python-dotenv==1.0.1
-streamlit==1.40.1
-replicate==1.0.3
-transformers==4.46.3
-torch==2.2.0 
+python-dotenv
+streamlit
+replicate
+transformers
+torch 

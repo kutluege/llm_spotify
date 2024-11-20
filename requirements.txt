@@ -2,7 +2,5 @@ python-dotenv
 streamlit
 replicate
 transformers
-torch
-re
-os
+torch==2.0.1
 requests

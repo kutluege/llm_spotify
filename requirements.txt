@@ -2,3 +2,7 @@ python-dotenv
 streamlit
 replicate
 transformers
+torch
+re
+os
+requests
